@@ -32,7 +32,7 @@ describe('layered routes', () => {
     });
 
     const order2 = await Order.insert({
-      quantiy: 69
+      quantity: 69
     });
 
     const order3 = await Order.insert({
@@ -43,4 +43,16 @@ describe('layered routes', () => {
     expect(res.body).toEqual([order1, order2, order3]);
   });
   
+  it('updates an order', async () => {
+    const order = await Order.insert({
+      quantity: 13
+    });
+
+    order.quantity = 12;
+
+    const res = await request(app).put(`/api/v1/orders/${order.id}`)
+      .send(order);
+    expect(res.body).toEqual(order);
+
+  });
 });
