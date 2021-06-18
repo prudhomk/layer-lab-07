@@ -55,4 +55,14 @@ describe('layered routes', () => {
     expect(res.body).toEqual(order);
 
   });
+
+  it('deletes an order', async () => {
+    const order = await Order.insert({
+      quantity: 1000
+    });
+    
+    const res = await request(app).delete(`/api/v1/orders/${order.id}`);
+    
+    expect(res.body).toEqual(order);
+  });
 });
